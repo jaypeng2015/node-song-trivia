@@ -1,0 +1,55 @@
+.flexContainer
+  display flex
+  position relative
+  box-sizing border-box
+
+.leftSidebar
+  float left
+  min-width $sidebar-width
+  background $color-plum
+  box-shadow $box-shadow-left-sidebar
+  z-index $z-index-shadow
+  +below($screen-medium)
+    position absolute
+    width $sidebar-width
+    height 100%
+
+.leftSidebarContent
+  position absolute
+  bottom 0
+  top 0
+  max-width $sidebar-width
+  +below($screen-small)
+    max-width $sidebar-width-mobile
+
+.rightSidebar
+  float right
+  min-width $sidebar-width
+  max-width $sidebar-width
+  box-shadow $box-shadow-right-sidebar
+  z-index $z-index-shadow
+  +below($screen-medium)
+    position absolute
+    right 0
+
+.content
+  text-align center
+  z-index 900
+  flex 1
+  background $page-background
+  transform translate(0)
+  transition transform .4s cubic-bezier($ease-out-cubic)
+  min-height $sidebar-height
+
+.openLeftSidebar
+  transform translate($sidebar-width)
+  +below($screen-small)
+    transform translateX($sidebar-width-mobile)
+
+.openRightSidebar
+  transform translateX($sidebar-shift)
+  +below($screen-small)
+    transform translateX($sidebar-shift-mobile)
+
+.sidebarTransition
+  transition transform .4s cubic-bezier($ease-out-cubic)
