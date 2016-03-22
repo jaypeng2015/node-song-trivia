@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A website for an unusual patisserie store.",
   "scripts": {
-    "test": "npm test",
+    "test": "echo 'No Tests :)'",
     "dev": "NODE_ENV=development node server",
     "start": "NODE_ENV=production node server",
     "build": "webpack --config config/webpack/client-dev.config.js"
