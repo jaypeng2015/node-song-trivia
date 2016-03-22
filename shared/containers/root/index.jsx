@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import { Router } from 'react-router';
 import React, { Component, PropTypes } from 'react';
 
 function scrollToTop() {
