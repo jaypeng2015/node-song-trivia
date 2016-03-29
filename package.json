@@ -46,6 +46,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-1": "^6.5.0",
+    "esformatter-jsx": "^5.0.0",
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.3",
@@ -54,15 +55,5 @@
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.10.0"
-  },
-  "esformatter": {
-    "whiteSpace": {
-      "before": {
-        "ObjectPatternClosingBrace": 1
-      },
-      "after": {
-        "ObjectPatternOpeningBrace": 1
-      }
-    }
   }
 }
