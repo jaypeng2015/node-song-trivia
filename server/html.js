@@ -9,19 +9,19 @@ export default function generateHtml(config) {
         <meta name="viewport" content="width=device-width initial-scale=1 maximum-scale=1.0 user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="apple-mobile-web-app-title" content="NSW Synergy Health Gateway"/>
-        <meta name="application-name" content="NSW Synergy Health Gateway"/>
+        <meta name="apple-mobile-web-app-title" content="Scorpio"/>
+        <meta name="application-name" content="Scorpio"/>
         <meta name="msapplication-TileColor" content="#da532c"/>
         <meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png"/>
 
         <meta property="og:url" content="${config.EXTERNAL_BASE_URL}" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Unusual Patisserie" />
-        <meta property="og:description" content="The Unusual Patisserie is linking you into Australia’s world-class 21st century patisserie purchasing/learning system." />
+        <meta property="og:title" content="Scorpio" />
+        <meta property="og:description" content="The Scorpio is linking you into Australia’s world-class 21st century patisserie purchasing/learning system." />
         <meta property="og:image" content="${urlJoin(config.EXTERNAL_BASE_URL, '/img/screenshot.png')}" />
 
-        <title>Unusual Patisserie</title>
-        <meta property="description" content="The Unusual Patisserie is linking you into Australia’s world-class 21st century patisserie purchasing/learning system." />
+        <title>Scorpio</title>
+        <meta property="description" content="The Scorpio is linking you into Australia’s world-class 21st century patisserie purchasing/learning system." />
 
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="57x57" href="/img/favicons/apple-touch-icon-57x57.png"/>
