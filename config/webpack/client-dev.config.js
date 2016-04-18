@@ -93,8 +93,6 @@ module.exports = {
       '~nib/lib/nib/index.styl',
       '~rupture/rupture/index.styl',
       path.join(constants.SHARED_DIR, '/style/variables'),
-      path.join(constants.SHARED_DIR, '/style/mixins'),
-      path.join(constants.SHARED_DIR, '/components/grid/variables'),
     ],
   },
 };
