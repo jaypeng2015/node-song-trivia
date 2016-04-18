@@ -1,11 +1,27 @@
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+
+import Header from 'components/header';
+import Footer from 'components/footer';
+import Sidebar from 'components/sidebar';
+
+import styles from './styles';
 
 class App extends Component {
+
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+  };
+
   render() {
     return (
       <div>
-        <p>This is the app</p>
+        <Header />
+        <Sidebar className={styles.rightSidebar} />
+        <div>
+          {this.props.children}
+        </div>
+        <Footer />
       </div>
       );
   }

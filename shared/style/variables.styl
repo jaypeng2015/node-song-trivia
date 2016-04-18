@@ -1,0 +1,147 @@
+/**
+ * Color palette and branding
+ */
+
+// Base colours
+$color-black = #000
+$color-white = #fff
+$base-text-color = $color-black
+$base-background-color = $color-white
+
+// Brand colours
+$brand-color-primary = #f77a3d
+$brand-color-secondary = #4f3040
+$brand-color-tertiary = #def8af
+
+// Panels
+$color-plum = #4f3040
+$color-plum-dark = darken($color-plum, 30%)
+$color-plum-light = #5d404f
+$color-cherry = #d20056
+
+// The grey spectrum
+$color-grey-10 = darken($color-white, 10%)
+$color-grey-20 = darken($color-white, 20%)
+$color-grey-30 = darken($color-white, 30%)
+$color-grey-40 = darken($color-white, 40%)
+$color-grey-50 = darken($color-white, 50%)
+$color-grey-60 = darken($color-white, 60%)
+$color-grey-70 = darken($color-white, 70%)
+$color-grey-80 = darken($color-white, 80%)
+$color-grey-90 = darken($color-white, 90%)
+
+// Pages main backgtound color
+$page-background = #f3f0ed
+
+// Alert and user feedback
+$alert-color-success = #5cb85c
+$alert-color-warning = #f0ad4e
+$alert-color-danger = #d9534f
+$alert-color-info = #379abf
+
+// User interaction and accessibility
+$base-link-color-primary = #41b7d8
+$base-selection-color=  #b3d4fc
+$input-focus-outline = #00a6e4
+$happiness-central-color-primary = #43c7f4
+
+// standard opacity for links and logos
+$dim-opacity = .8
+
+/**
+ * Shapes and Layout
+ */
+
+$base-pixel-value = 16px
+$base-border-radius = 4px
+$base-spacing = 1.2em
+
+// Layout
+$layout-top-padding = unit($base-pixel-value * 3, 'px')
+$layout-bottom-padding = $layout-top-padding
+$layout-top-padding-mobile = unit($base-pixel-value * 6, 'px')
+$layout-side-padding = unit($base-pixel-value * 1.5, 'px')
+
+// Sidebars
+$sidebar-width = 300px
+$sidebar-width-mobile = 250px
+$sidebar-height = 1100px
+$sidebar-shift = - $sidebar-width
+$sidebar-shift-mobile = - $sidebar-width-mobile
+
+// Sidebars' translateX effect values
+$shift-nav-bar = $sidebar-width
+$shift-side-bar = - $sidebar-width
+$shift-nav-bar-mobile = $sidebar-width-mobile
+$shift-side-bar-mobile = - $sidebar-width-mobile
+
+// Hidden offcanvases horisontal shift
+$offcanvas-shift = -200px
+
+// Page width
+$page-width = 'calc(100vw - %s*2 )' % $sidebar-width
+
+// vertical rhythm
+$base-vertical-rhythm = $base-spacing
+
+// Breakpoints
+$screen-extra-small = 480px // Mobile
+$screen-small = 768px // Fablet / tablet portrait
+$screen-medium = 1024px // Large tablet portrait / tablet landscape
+$screen-large = 1280px // Laptop
+$screen-extra-large = 1450px // Retina laptop + desktop
+
+// Z-Index
+// $z-index-identifier = integer
+$z-index-off-canvas = 10
+$z-index-off-canvas-top = 20
+$z-index-site = 100
+$z-index-mobile-header = 110
+$z-index-shadow = 900
+$z-index-modal = 1000
+
+// Box shadows
+$box-shadow-default = 0 1px 2px 1px $color-grey-20
+$box-shadow-modal = 0 3px 9px rgba(0, 0, 0, .5)
+$box-shadow-left-sidebar = 0 3px 9px rgba(0, 0, 0, .9)
+$box-shadow-right-sidebar = -5px 0 10px -5px rgb(179, 177, 179)
+
+/**
+ * Typography
+ */
+
+// Font families
+$base-font-family-serif = 'Lucida Serif', Lucida, Georgia, serif
+$base-font-family-sans-serif = 'soleil', 'Helvetica Neue', Helvetica, sans-serif
+$base-font-family-monospace = Consolas, monaco, monospace
+
+// Font weights
+$font-weight-extra-light = 100
+$font-weight-very-light = 200
+$font-weight-light = 300
+$font-weight-normal = 400
+$font-weight-page-theme-headers = 500
+$font-weight-normal-bolder = 600
+$font-weight-bold = 700
+
+// Font size variations
+$base-font-size = $base-pixel-value
+$base-font-size-small = $base-font-size * .85
+
+// Font characteristics
+$base-font-family = $base-font-family-sans-serif
+$base-font-weight = $font-weight-normal
+$base-line-height = 1.4
+
+// Miscellaneous type properties
+$code-font-family = $base-font-family-monospace
+
+// Heading characteristics
+$headings-font-family = $base-font-family-sans-serif
+$headings-font-weight = $font-weight-bold
+$headings-line-height = 1.2
+
+/**
+ * Animation
+ */
+$ease-out-cubic = .215, .61, .355, 1

@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
 
 import apiMiddleware from 'middleware/api';
-import metaMiddleware from 'middleware/meta';
 import thunkMiddleware from 'redux-thunk';
 const reduxRouterMiddleware = syncHistory(browserHistory);
 
@@ -16,7 +15,6 @@ export default function configureStore(initialState) {
     applyMiddleware(
       reduxRouterMiddleware,
       apiMiddleware,
-      metaMiddleware,
       thunkMiddleware
     )
   );

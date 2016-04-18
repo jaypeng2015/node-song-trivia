@@ -1,7 +1,6 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 
 import apiMiddleware from 'middleware/api';
-import metaMiddleware from 'middleware/meta';
 import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from '../reducers';
@@ -10,7 +9,6 @@ export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
     applyMiddleware(
       apiMiddleware,
-      metaMiddleware,
       thunkMiddleware
     ),
     window.devToolsExtension ? window.devToolsExtension() : (pass) => pass
