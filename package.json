@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A chat bot who wants do everything.",
   "scripts": {
-    "test": "echo 'No Tests :)'",
+    "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc --ext .js .",
+    "start": "node index.js",
+    "test": "echo 'No Tests :)'"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,12 @@
   },
   "homepage": "https://github.com/jaypeng2015/scorpio#readme",
   "dependencies": {
+    "botkit": "^0.2.2",
+    "nconf": "^0.8.4"
   },
   "devDependencies": {
+    "eslint": "^3.0.1",
+    "eslint-config-airbnb-base": "^4.0.0",
+    "eslint-plugin-import": "^1.10.2"
   }
 }
