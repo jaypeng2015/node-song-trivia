@@ -1,4 +1,5 @@
 const nconf = require('nconf');
+const path = require('path');
 
 const SEPARATOR = '__';
 const env = process.env.NODE_ENV || 'development';
@@ -25,8 +26,8 @@ nconf
     ],
   })
   .argv()
-  .file('local', './config/data/config.local.json')
-  .file(env, `./config/data/config.${env}.json`)
-  .file('defaults', './config/data/config.defaults.json');
+  .file('local', path.join(__dirname, '/data/config.local.json'))
+  .file(env, path.join(__dirname, `/data/config.${env}.json`))
+  .file('defaults', path.join(__dirname, '/data/config.defaults.json'));
 
 module.exports = nconf;

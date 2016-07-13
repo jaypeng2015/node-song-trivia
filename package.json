@@ -4,7 +4,7 @@
   "description": "A chat bot who wants do everything.",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc --ext .js .",
-    "start": "node index.js",
+    "start": "node --use_strict index.js",
     "test": "echo 'No Tests :)'"
   },
   "repository": {
@@ -26,7 +26,15 @@
   "homepage": "https://github.com/jaypeng2015/scorpio#readme",
   "dependencies": {
     "botkit": "^0.2.2",
-    "nconf": "^0.8.4"
+    "fancy-errors": "^0.1.2",
+    "lodash": "^4.13.1",
+    "moment": "^2.14.1",
+    "nconf": "^0.8.4",
+    "pg": "^6.0.2",
+    "sequelize": "^3.23.4",
+    "winston": "^2.2.0",
+    "winston-loggly": "^1.3.1",
+    "winston-sentry": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "^3.0.1",

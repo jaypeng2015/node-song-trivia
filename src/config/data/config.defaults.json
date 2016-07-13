@@ -1,5 +1,42 @@
 {
   "botkit": {
     "token": ""
+  },
+  "gameOperator": {
+    "name": "spotbot"
+  },
+  "postgres": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "",
+    "password": "",
+    "database": "scorpio",
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "idle": 10000
+    }
+  },
+  "log": {
+    "transports": ["console"],
+    "defaults": {
+      "level": "debug"
+    },
+    "console": {
+      "level": null
+    },
+    "file": {
+      "level": null,
+      "filename": null
+    },
+    "loggly": {
+      "level": null,
+      "subdomain": null,
+      "token": null
+    },
+    "sentry": {
+      "level": null,
+      "dsn": null
+    }
   }
 }

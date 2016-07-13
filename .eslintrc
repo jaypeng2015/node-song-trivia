@@ -11,6 +11,6 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "max-len": ["error", 160, 4, {"ignoreUrls": true}],
     "no-use-before-define": [2, "nofunc"],
-    "no-param-reassign": ["error", { "props": false }],
+    "no-param-reassign": ["error", { "props": false }]
   },
 }
