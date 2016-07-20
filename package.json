@@ -12,8 +12,11 @@
     "url": "git+https://github.com/jaypeng2015/node-song-trivia-bot.git"
   },
   "keywords": [
-    "patisserie",
-    "scorpio"
+    "slack",
+    "song",
+    "trivia",
+    "bot",
+    "node"
   ],
   "engines": {
     "node": "6.3.0"
