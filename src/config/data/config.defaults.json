@@ -2,6 +2,12 @@
   "botkit": {
     "token": ""
   },
+  "signals": {
+    "start": "A new game has begun! May the most musically-knowledgeable win!",
+    "end": "The game is over!",
+    "guess": "&gt;",
+    "clue": "Okay, here's a clue"
+  },
   "gameOperator": {
     "name": "spotbot"
   },
@@ -10,7 +16,7 @@
     "port": 5432,
     "user": "",
     "password": "",
-    "database": "scorpio",
+    "database": "song-trivia",
     "pool": {
       "max": 5,
       "min": 0,

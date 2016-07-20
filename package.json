@@ -1,7 +1,7 @@
 {
-  "name": "Scorpio",
+  "name": "Trivia",
   "version": "1.0.0",
-  "description": "A chat bot who wants do everything.",
+  "description": "A chat bot who wants win the song trivia game.",
   "scripts": {
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc --ext .js .",
     "start": "node --use_strict index.js",
@@ -25,9 +25,11 @@
   },
   "homepage": "https://github.com/jaypeng2015/scorpio#readme",
   "dependencies": {
+    "async": "^2.0.0",
     "botkit": "^0.2.2",
     "fancy-errors": "^0.1.2",
     "lodash": "^4.13.1",
+    "memory-cache": "^0.1.6",
     "moment": "^2.14.1",
     "nconf": "^0.8.4",
     "pg": "^6.0.2",

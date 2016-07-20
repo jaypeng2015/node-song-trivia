@@ -1,4 +1,4 @@
-const Scorpio = require('./src/scorpio');
+const MrTrivia = require('./src/trivia');
 
-const scorpio = new Scorpio();
-scorpio.listen();
+const mrTrivia = new MrTrivia();
+mrTrivia.listen();

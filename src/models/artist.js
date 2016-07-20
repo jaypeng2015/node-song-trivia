@@ -9,7 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   };
 
+  const indexes = [{
+    unique: true,
+    fields: ['name'],
+  }];
+
   const Artist = sequelize.define('artist', schema, {
+    indexes,
     classMethods: {
       associate: (models) => {
         models.Artist.belongsToMany(models.Track, { through: 'artist-track' });
