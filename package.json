@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaypeng2015/node-song-trivia.git"
+    "url": "git+https://github.com/jaypeng2015/node-song-trivia-bot.git"
   },
   "keywords": [
     "patisserie",
@@ -21,9 +21,9 @@
   "author": "Jingwei Peng",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jaypeng2015/node-song-trivia/issues"
+    "url": "https://github.com/jaypeng2015/node-song-trivia-bot/issues"
   },
-  "homepage": "https://github.com/jaypeng2015/node-song-trivia#readme",
+  "homepage": "https://github.com/jaypeng2015/node-song-trivia-bot#readme",
   "dependencies": {
     "async": "^2.0.0",
     "botkit": "^0.2.2",
