@@ -1,5 +1,5 @@
 {
-  "name": "Trivia",
+  "name": "Song Trivia",
   "version": "1.0.0",
   "description": "A chat bot who wants win the song trivia game.",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaypeng2015/scorpio.git"
+    "url": "git+https://github.com/jaypeng2015/node-song-trivia.git"
   },
   "keywords": [
     "patisserie",
@@ -21,9 +21,9 @@
   "author": "Jingwei Peng",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jaypeng2015/scorpio/issues"
+    "url": "https://github.com/jaypeng2015/node-song-trivia/issues"
   },
-  "homepage": "https://github.com/jaypeng2015/scorpio#readme",
+  "homepage": "https://github.com/jaypeng2015/node-song-trivia#readme",
   "dependencies": {
     "async": "^2.0.0",
     "botkit": "^0.2.2",
