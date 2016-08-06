@@ -1,5 +1,5 @@
 {
-  "name": "Song Trivia",
+  "name": "Song-Trivia-Bot",
   "version": "1.0.0",
   "description": "A chat bot who wants win the song trivia game.",
   "scripts": {
