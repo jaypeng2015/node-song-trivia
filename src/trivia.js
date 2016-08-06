@@ -15,9 +15,14 @@ class Scorpio {
     this.controller = Botkit.slackbot({ debug: false });
     this.bot = this.controller.spawn({ token }).startRTM();
     this.gameOperator = config.get('gameOperator');
-    this.gameStarted = false;
+    this.gameStarted = {};
     this.knowledgeController = new KnowledgeController(this.bot);
     this.chatController = new ChatController(this.bot);
+  }
+
+  isGameStarted(team, channel) {
+    const teamStatus = this.gameStarted[team];
+    return teamStatus ? teamStatus[channel] : false;
   }
 
   listen() {
@@ -45,41 +50,55 @@ class Scorpio {
 
         const signals = config.get('signals');
         this.controller.hears(`${signals.start}*`, [
-          'direct_message',
-          'message_received',
+          'ambient',
         ], (bot, message) => {
-          this.gameStarted = true;
-          logger.info(`Game started by ${message.user}`);
-          bot.reply(message, `I am ready! <@${message.user}>`);
+          if (message.team && message.channel) {
+            const teamStatus = this.gameStarted[message.team];
+            if (teamStatus) {
+              teamStatus[message.channel] = true;
+            } else {
+              this.gameStarted[message.team] = {
+                [message.channel]: true,
+              };
+            }
+            logger.info(`Game started by ${message.user} on channel ${message.channel} of ${message.team}`);
+            bot.reply(message, `I am ready! <@${message.user}>`);
+          }
         });
 
         this.controller.hears(signals.end, [
-          'direct_message',
-          'message_received',
+          'ambient',
         ], (bot, message) => {
-          this.gameStarted = false;
-          logger.info(`Game stopped by ${message.user}`);
-          bot.reply(message, 'Good game!');
+          if (message.team && message.channel) {
+            const teamStatus = this.gameStarted[message.team];
+            if (teamStatus) {
+              teamStatus[message.channel] = false;
+            } else {
+              this.gameStarted[message.team] = {
+                [message.channel]: false,
+              };
+            }
+            logger.info(`Game stopped by ${message.user} on channel ${message.channel} of ${message.team}`);
+            bot.reply(message, 'Good game!');
+          }
         });
 
         this.controller.hears(`${signals.guess}*`, [
-          'direct_message',
-          'message_received',
+          'ambient',
         ], (bot, message) => {
-          // if (this.gameStarted) {
-          messageCache.put(message.ts, message.text, 10000);
-          logger.debug('message saved', message);
-          // }
+          if (this.isGameStarted(message.team, message.channel)) {
+            messageCache.put(message.ts, message.text, 10000);
+            logger.debug('message saved', message);
+          }
         });
 
         this.controller.hears(`${signals.clue}*`, [
-          'direct_message',
-          'message_received',
+          'ambient',
         ], (bot, message) => {
-          logger.info('It\'s time to guess!', message);
-          // if (this.gameStarted) {
-          this.knowledgeController.guess(message);
-          // }
+          if (this.isGameStarted(message.team, message.channel)) {
+            logger.info('It\'s time to guess!', message);
+            this.knowledgeController.guess(message);
+          }
         });
 
         this.controller.on([
