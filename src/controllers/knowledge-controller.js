@@ -15,7 +15,7 @@ class KnowledgeController {
   }
 
   learnArtist(artist) {
-    const name = _.trimStart(_.trimStart(_.toUpper(_.trim(artist), '>'), signals.start));
+    const name = _.trim(_.trimStart(_.toUpper(_.trim(artist)), signals.guess));
     return Artist.findOne({ where: { name } })
       .then((found) => {
         if (!found) {
@@ -31,7 +31,7 @@ class KnowledgeController {
   }
 
   learnTrack(track) {
-    const name = _.trimStart(_.trimStart(_.toUpper(_.trim(track), '>'), signals.start));
+    const name = _.trim(_.trimStart(_.toUpper(_.trim(track)), signals.guess));
     return Track.findOne({ where: { name } })
       .then((found) => {
         if (!found) {

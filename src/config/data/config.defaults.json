@@ -5,7 +5,7 @@
   "signals": {
     "start": "A new game has begun! May the most musically-knowledgeable win!",
     "end": "The game is over!",
-    "guess": "&gt;",
+    "guess": "&GT;",
     "clue": "Okay, here's a clue"
   },
   "gameOperator": {
