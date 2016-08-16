@@ -7,10 +7,11 @@
   },
   "rules": {
     "arrow-body-style": 0,
-    "id-length": [2, {"min": 2, "properties": "never", "exceptions": ["_", "i", "j"]}],
+    "id-length": [2, {"min": 2, "properties": "never", "exceptions": ["_", "i", "j", "$"]}],
     "indent": [2, 2, {"SwitchCase": 1}],
     "max-len": ["error", 160, 4, {"ignoreUrls": true}],
     "no-use-before-define": [2, "nofunc"],
-    "no-param-reassign": ["error", { "props": false }]
-  },
+    "no-param-reassign": ["error", { "props": false }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}]
+  }
 }

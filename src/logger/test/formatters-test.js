@@ -36,15 +36,21 @@ ${JSON.stringify(meta, null, 2)}`
     });
 
     it('should format data: trace formatter', () => {
-      const meta = { trace: [
-        { file: 'foo/bar.js', line: 30, column: 3, function: 'main' },
-        { native: true, function: 'Module._compile' },
-      ], foo: 'bar' };
+      const meta = {
+        trace: [
+          { file: 'foo/bar.js', line: 30, column: 3, function: 'main' },
+          { native: true, function: 'Module._compile' },
+        ],
+        foo: 'bar',
+      };
 
-      const expectedJson = JSON.stringify({ trace: [
-        'main (foo/bar.js:30:3)',
-        'Module._compile (native)',
-      ], foo: 'bar' }, null, 2);
+      const expectedJson = JSON.stringify({
+        trace: [
+          'main (foo/bar.js:30:3)',
+          'Module._compile (native)',
+        ],
+        foo: 'bar',
+      }, null, 2);
 
       assert.equal(
         formatters.console({ level, message, meta, date }),
