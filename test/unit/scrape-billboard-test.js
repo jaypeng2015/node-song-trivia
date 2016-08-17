@@ -7,12 +7,9 @@ describe('web-scrapper', () => {
       .then((result) => {
         should.exist(result);
         result.should.be.an.Array();
-        result.forEach((list) => {
-          list.should.be.an.Array();
-          list.forEach((record) => {
-            record.should.have.property('track');
-            record.should.have.property('artist');
-          });
+        result.forEach((record) => {
+          record.should.have.property('track');
+          record.should.have.property('artist');
         });
       });
   });

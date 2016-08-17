@@ -70,7 +70,14 @@ const getCharts = () => {
         return result;
       }, []);
 
-      resolve(Promise.all(promises));
+      Promise.all(promises)
+       .then((results) => {
+         const records = _.reduce(results, (array, result) => {
+           return _.union(array, result);
+         }, []);
+         resolve(records);
+       })
+       .catch(reject);
     });
   });
 };
