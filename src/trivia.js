@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const Botkit = require('botkit');
 const messageCache = require('memory-cache');
 
@@ -37,10 +36,7 @@ class Trivia {
   study() {
     return webScrapper.scrapeBillboard()
       .then((records) => {
-        const promises = _.reduce(records, (array, record) => {
-          array.push(this.knowledgeController.learn(record));
-          return array;
-        }, []);
+        const promises = records.map((record) => () => this.knowledgeController.learn(record));
 
         const promise = Promise.resolve();
         promises.reduce((pre, current) => {

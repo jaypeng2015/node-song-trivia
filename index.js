@@ -1,5 +1,5 @@
 const MrTrivia = require('./src/trivia');
 
 const mrTrivia = new MrTrivia();
-mrTrivia.study();
+// mrTrivia.study();
 mrTrivia.listen();
