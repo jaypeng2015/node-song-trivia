@@ -19,7 +19,7 @@
     "node"
   ],
   "engines": {
-    "node": "6.3.0"
+    "node": "6.4.0"
   },
   "author": "Jingwei Peng",
   "license": "MIT",

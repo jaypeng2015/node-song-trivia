@@ -1,16 +1,22 @@
+const _ = require('lodash');
 const Botkit = require('botkit');
 const messageCache = require('memory-cache');
 
 const config = require('./config');
 const logger = require('./logger');
 const models = require('./models');
+const EventEmitter = require('events').EventEmitter;
+const util = require('util');
 
 const ChatController = require('./controllers/chat-controller');
 const KnowledgeController = require('./controllers/knowledge-controller');
 
-class Scorpio {
+const webScrapper = require('./web-scrapper');
+
+class Trivia {
 
   constructor() {
+    EventEmitter.call(this);
     const token = config.get('botkit:token');
     this.controller = Botkit.slackbot({ debug: false });
     this.bot = this.controller.spawn({ token }).startRTM();
@@ -18,11 +24,38 @@ class Scorpio {
     this.gameStarted = {};
     this.knowledgeController = new KnowledgeController(this.bot);
     this.chatController = new ChatController(this.bot);
+    this.on('finished studying', () => {
+      logger.info('Finished learning from billboard!');
+    });
   }
 
   isGameStarted(team, channel) {
     const teamStatus = this.gameStarted[team];
     return teamStatus ? teamStatus[channel] : false;
+  }
+
+  study() {
+    return webScrapper.scrapeBillboard()
+      .then((records) => {
+        const promises = _.reduce(records, (array, record) => {
+          array.push(this.knowledgeController.learn(record));
+          return array;
+        }, []);
+
+        const promise = Promise.resolve();
+        promises.reduce((pre, current) => {
+          return pre.then(current);
+        }, promise)
+          .then(() => {
+            this.emit('finished studying');
+          })
+          .catch((err) => {
+            logger.error('Something went wrong while studying', err);
+          });
+      })
+      .catch((err) => {
+        logger.error('Something went wrong while scrapping billboard', err);
+      });
   }
 
   listen() {
@@ -112,4 +145,5 @@ class Scorpio {
   }
 }
 
-module.exports = Scorpio;
+util.inherits(Trivia, EventEmitter);
+module.exports = Trivia;

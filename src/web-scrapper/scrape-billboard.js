@@ -63,13 +63,14 @@ const getCharts = () => {
         return href.attribs && _.startsWith(href.attribs.href, '/charts/');
       });
 
-      const promises = _.reduce(hrefs, (result, href) => {
+      let promises = _.reduce(hrefs, (result, href) => {
         const link = url.resolve(host, href.attribs.href);
         const promise = parseChart(link);
         result.push(promise);
         return result;
       }, []);
 
+      promises = [promises[0]]
       Promise.all(promises)
        .then((results) => {
          const records = _.reduce(results, (array, result) => {
