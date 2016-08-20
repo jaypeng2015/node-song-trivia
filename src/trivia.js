@@ -62,10 +62,13 @@ class Trivia {
           if (item.type === 'message' && (reaction === 'musical_note' || reaction === 'art')) {
             const history = messageCache.get(item.ts);
             if (history) {
-              const answers = history.split('-');
+              const answers = history.text.split('-');
               if (answers.length === 1) {
                 if (reaction === 'musical_note') {
-                  this.knowledgeController.learnTrack(answers[0], '>').then();
+                  this.knowledgeController.learnTrack(answers[0], '>')
+                    .then((track) => {
+                      this.knowledgeController.guessArtistByTrack(history, track);
+                    });
                 } else {
                   this.knowledgeController.learnArtist(answers[0], '>').then();
                 }
@@ -116,7 +119,7 @@ class Trivia {
           'ambient',
         ], (bot, message) => {
           if (this.isGameStarted(message.team, message.channel)) {
-            messageCache.put(message.ts, message.text, 10000);
+            messageCache.put(message.ts, message, 10000);
             logger.debug('message saved', message);
           }
         });

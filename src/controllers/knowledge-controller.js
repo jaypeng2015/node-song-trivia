@@ -128,6 +128,15 @@ class KnowledgeController {
     }
   }
 
+  guessArtistByTrack(message, track) {
+    track.getArtists()
+      .then((artists) => {
+        artists.forEach((artist) => {
+          this.bot.reply(message, `>${artist.name}`);
+        });
+      });
+  }
+
   match(Module, clue, callback) {
     if (!_.includes(clue, '_')) {
       callback();
