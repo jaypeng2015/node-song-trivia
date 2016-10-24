@@ -8,9 +8,7 @@ const EventEmitter = require('events').EventEmitter;
 const util = require('util');
 
 const ChatController = require('./controllers/chat-controller');
-const KnowledgeController = require('./controllers/knowledge-controller');
-
-const webScrapper = require('./web-scrapper');
+const Brain = require('./lib/brain');
 
 class Trivia {
 
@@ -21,37 +19,13 @@ class Trivia {
     this.bot = this.controller.spawn({ token }).startRTM();
     this.gameOperator = config.get('gameOperator');
     this.gameStarted = {};
-    this.knowledgeController = new KnowledgeController(this.bot);
+    this.brain = new Brain(this.bot);
     this.chatController = new ChatController(this.bot);
-    this.on('finished studying', () => {
-      logger.info('Finished learning from billboard!');
-    });
   }
 
   isGameStarted(team, channel) {
     const teamStatus = this.gameStarted[team];
     return teamStatus ? teamStatus[channel] : false;
-  }
-
-  study() {
-    return webScrapper.scrapeBillboard()
-      .then((records) => {
-        const promises = records.map((record) => () => this.knowledgeController.learn(record));
-
-        const promise = Promise.resolve();
-        promises.reduce((pre, current) => {
-          return pre.then(current);
-        }, promise)
-          .then(() => {
-            this.emit('finished studying');
-          })
-          .catch((err) => {
-            logger.error('Something went wrong while studying', err);
-          });
-      })
-      .catch((err) => {
-        logger.error('Something went wrong while scrapping billboard', err);
-      });
   }
 
   listen() {
@@ -65,16 +39,16 @@ class Trivia {
               const answers = history.text.split('-');
               if (answers.length === 1) {
                 if (reaction === 'musical_note') {
-                  this.knowledgeController.learnTrack(answers[0], '>')
+                  this.brain.learnTrack(history, answers[0])
                     .then((track) => {
-                      this.knowledgeController.guessArtistByTrack(history, track);
+                      this.brain.guessArtistByTrack(history, track);
                     });
                 } else {
-                  this.knowledgeController.learnArtist(answers[0], '>').then();
+                  this.brain.learnArtist(history, answers[0]).then();
                 }
               } else {
                 // ignore answers like "artist - track" or "track - artist"
-                // 'cause the bot don't know which is which, and people prefer one answer and that is faster
+                // 'cause the bot don't know which is which, and people prefer one answer because that is faster
               }
             }
           }
@@ -129,7 +103,7 @@ class Trivia {
         ], (bot, message) => {
           if (this.isGameStarted(message.team, message.channel)) {
             logger.info('It\'s time to guess!', message);
-            this.knowledgeController.guess(message);
+            this.brain.guessByClue(message);
           }
         });
 
