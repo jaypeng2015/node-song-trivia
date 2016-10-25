@@ -1,4 +1,4 @@
-const MrTrivia = require('./src/trivia');
+const Antonio = require('./src/antonio');
 
-const mrTrivia = new MrTrivia();
-mrTrivia.listen();
+const antonio = new Antonio();
+antonio.listen();

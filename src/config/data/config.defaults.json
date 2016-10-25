@@ -8,9 +8,6 @@
     "guess": "&GT;",
     "clue": "Okay, here's a clue:"
   },
-  "gameOperator": {
-    "name": "spotbot"
-  },
   "postgres": {
     "host": "localhost",
     "port": 5432,

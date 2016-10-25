@@ -1,5 +1,6 @@
-const learn = require('./learn');
-const guess = require('./guess');
+const hippocampus = require('./hippocampus');
+const frontalLobe = require('./frontal-lobe');
+const occipitalLobe = require('./occipital-lobe');
 
 class Brain {
 
@@ -8,23 +9,27 @@ class Brain {
   }
 
   learnArtist(message, answers) {
-    return learn.learnArtist(this.bot, message, answers);
+    return hippocampus.learnArtist(this.bot, message, answers);
   }
 
   learnTrack(message, answers) {
-    return learn.learnTrack(this.bot, message, answers);
+    return hippocampus.learnTrack(this.bot, message, answers);
   }
 
   studyBillboard(message) {
-    return learn.studyBillboard(this.bot, message);
+    return hippocampus.studyBillboard(this.bot, message);
   }
 
   guessByClue(message) {
-    return guess.guessByClue(this.bot, message);
+    return frontalLobe.guessByClue(this.bot, message);
   }
 
   guessArtistByTrack(message, track) {
-    return guess.guessArtistByTrack(this.bot, message, track);
+    return frontalLobe.guessArtistByTrack(this.bot, message, track);
+  }
+
+  chat(message) {
+    return occipitalLobe.chat(message);
   }
 }
 
