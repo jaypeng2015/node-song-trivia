@@ -13,7 +13,7 @@
     "port": 5432,
     "user": "",
     "password": "",
-    "database": "song-trivia",
+    "database": "antonio",
     "pool": {
       "max": 5,
       "min": 0,

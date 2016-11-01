@@ -5,7 +5,6 @@ const config = require('./config');
 const logger = require('./logger');
 const models = require('./models');
 
-const ChatController = require('./controllers/chat-controller');
 const Brain = require('./lib/brain');
 
 class Antonio {
@@ -16,7 +15,6 @@ class Antonio {
     this.bot = this.controller.spawn({ token }).startRTM();
     this.gameStarted = {};
     this.brain = new Brain(this.bot);
-    this.chatController = new ChatController(this.bot);
   }
 
   listen() {
@@ -44,21 +42,21 @@ class Antonio {
 
         this.controller.hears(signals.end, [
           'ambient',
-        ], this.heardGameStarted);
+        ], (bot, message) => this.heardGameStarted(message));
 
         this.controller.hears(`${signals.guess}*`, [
           'ambient',
-        ], this.heardGuess);
+        ], (bot, message) => this.heardGuess(message));
 
         this.controller.hears(`${signals.clue}*`, [
           'ambient',
-        ], this.heardClue);
+        ], (bot, message) => this.heardClue(message));
 
         this.controller.on([
           'direct_message',
           'direct_mention',
           'mention',
-        ], this.heardSomethingElse);
+        ], (bot, message) => this.heardSomethingElse(message));
       });
   }
 
@@ -80,7 +78,7 @@ class Antonio {
                 this.brain.guessArtistByTrack(history, track);
               });
           } else {
-            this.brain.learnArtist(history, answers[0]).then();
+            this.brain.learnArtist(history, answers[0]).end();
           }
         } else {
           // ignore answers like "artist - track" or "track - artist"
@@ -90,7 +88,7 @@ class Antonio {
     }
   }
 
-  heardGameStarted(bot, message) {
+  heardGameStarted(message) {
     if (message.team && message.channel) {
       const teamStatus = this.gameStarted[message.team];
       if (teamStatus) {
@@ -101,25 +99,25 @@ class Antonio {
         };
       }
       logger.info(`Game stopped by ${message.user} on channel ${message.channel} of ${message.team}`);
-      bot.reply(message, 'Good game!');
+      this.bot.reply(message, 'Good game!');
     }
   }
 
-  heardGuess(bot, message) {
+  heardGuess(message) {
     if (this.isGameStarted(message.team, message.channel)) {
       messageCache.put(message.ts, message, 10000);
       logger.debug('message saved', message);
     }
   }
 
-  heardClue(bot, message) {
+  heardClue(message) {
     if (this.isGameStarted(message.team, message.channel)) {
       logger.info('It\'s time to guess!', message);
       this.brain.guessByClue(message);
     }
   }
 
-  heardSomethingElse(bot, message) {
+  heardSomethingElse(message) {
     this.brain.chat(message);
   }
 }

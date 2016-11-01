@@ -100,7 +100,8 @@ const learnPair = (bot, message, record) => {
     });
 };
 
-const studyBillboard = (bot, message) => {
+const scrapeBillboard = (bot, message) => {
+  bot.reply(message, 'Start scraping billboard.');
   return webScrapper.scrapeBillboard()
     .then((records) => {
       const promises = records.map((record) => () => learnPair(bot, message, record));
@@ -110,7 +111,7 @@ const studyBillboard = (bot, message) => {
         return pre.then(current);
       }, promise)
         .then(() => {
-          bot.reply(message, `Finished studying billboard. <@${message.user}>`);
+          bot.reply(message, `Finished scraping billboard. <@${message.user}>`);
         })
         .catch((err) => {
           logger.error('Something went wrong while studying', err);
@@ -124,7 +125,7 @@ const studyBillboard = (bot, message) => {
 };
 
 module.exports = {
-  studyBillboard,
+  scrapeBillboard,
   learnArtist,
   learnTrack,
 };

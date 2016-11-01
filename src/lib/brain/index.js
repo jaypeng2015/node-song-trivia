@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const hippocampus = require('./hippocampus');
 const frontalLobe = require('./frontal-lobe');
 const occipitalLobe = require('./occipital-lobe');
@@ -16,10 +17,6 @@ class Brain {
     return hippocampus.learnTrack(this.bot, message, answers);
   }
 
-  studyBillboard(message) {
-    return hippocampus.studyBillboard(this.bot, message);
-  }
-
   guessByClue(message) {
     return frontalLobe.guessByClue(this.bot, message);
   }
@@ -29,7 +26,16 @@ class Brain {
   }
 
   chat(message) {
-    return occipitalLobe.chat(message);
+    const text = message.text;
+    if (_.includes(text, 'scrape billboard')) {
+      return this.scrapeBillboard(message);
+    }
+
+    return occipitalLobe.chat(this.bot, message);
+  }
+
+  scrapeBillboard(message) {
+    return hippocampus.scrapeBillboard(this.bot, message);
   }
 }
 
