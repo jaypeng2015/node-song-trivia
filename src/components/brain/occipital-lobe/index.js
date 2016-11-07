@@ -1,4 +1,4 @@
-const logger = require('../../../logger');
+const logger = require('../../../lib/logger');
 
 const chat = (bot, message) => {
   logger.debug('Someone said something to me', message);

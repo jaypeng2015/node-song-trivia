@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 
-const logger = require('../logger');
+const logger = require('../lib/logger');
 
 // Get postgres configuration, create auth string if user specified, connect to database
 const config = require('../config').get('postgres');

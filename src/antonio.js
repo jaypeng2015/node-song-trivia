@@ -2,10 +2,10 @@ const Botkit = require('botkit');
 const messageCache = require('memory-cache');
 
 const config = require('./config');
-const logger = require('./logger');
+const logger = require('./lib/logger');
 const models = require('./models');
 
-const Brain = require('./lib/brain');
+const Brain = require('./components/brain');
 
 class Antonio {
 

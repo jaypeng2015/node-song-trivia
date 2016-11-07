@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const config = require('../config').get();
+const config = require('../../config').get();
 const factory = require('./factory');
 
 // Initiate a logger with config that has extras values on it

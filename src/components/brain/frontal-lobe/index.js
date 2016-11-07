@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-const logger = require('../../../logger');
+const logger = require('../../../lib/logger');
 const models = require('../../../models');
 const signals = require('../../../config').get('signals');
 
