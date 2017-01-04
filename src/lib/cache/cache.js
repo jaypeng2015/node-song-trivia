@@ -14,7 +14,6 @@ const constants = require('./constants');
 class Cache {
   constructor(config) {
     this.baseNamespace = config.redis.namespace;
-    this.enabled = config.enabled;
     this.constants = constants;
     this.redis = redis.open(config.redis);
   }
@@ -39,11 +38,6 @@ class Cache {
   set(key, value, opts, callback) {
     const done = _.isFunction(opts) ? opts : (callback || _.noop);
     const ttl = _.isFunction(opts) ? undefined : _.get(opts, 'ttl');
-
-    if (!this.enabled) {
-      done();
-      return;
-    }
 
     // Prepare the key, value and ttl
     const namespacedKey = this.namespace(key);
@@ -88,12 +82,6 @@ class Cache {
    */
   get(key, callback) {
     const cb = callback || _.noop;
-    // If store disabled or cb not function, don't continue
-    if (!this.enabled) {
-      cb();
-      return;
-    }
-
     const keys = _.flatten([key]).map((item) => this.namespace(item));
     this.redis.mget(keys, cbw(cb)((res) => {
       const results = res.map(JSON.parse);
@@ -111,11 +99,6 @@ class Cache {
    */
   del(key, callback) {
     const cb = callback || _.noop;
-    if (!this.enabled) {
-      cb(null, constants.NOT_FOUND);
-      return;
-    }
-
     const keys = _.flatten([key]).map((item) => this.namespace(item));
     this.redis.del(keys, (err, count) => {
       cb(err, count >= 1 ? constants.DELETED : constants.NOT_FOUND);
@@ -129,12 +112,6 @@ class Cache {
    */
   ttl(key, callback) {
     const cb = callback || _.noop;
-    // If store disabled or cb not function, don't continue
-    if (!this.enabled) {
-      cb(null, constants.KEY_NOT_FOUND);
-      return;
-    }
-
     this.redis.pttl(this.namespace(key), cb);
   }
 
@@ -144,13 +121,6 @@ class Cache {
    */
   flush(callback) {
     const cb = callback || _.noop;
-
-    // If store disabled, don't continue
-    if (!this.enabled) {
-      cb();
-      return;
-    }
-
     // Find keys beginning with the namespace prefix
     this.redis.keys(this.namespace('*'), cbw(cb)((keys) => {
       if (keys.length === 0) {

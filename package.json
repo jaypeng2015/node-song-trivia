@@ -35,7 +35,6 @@
     "cheerio": "^0.20.0",
     "fancy-errors": "^0.1.2",
     "lodash": "^4.13.1",
-    "memory-cache": "^0.1.6",
     "moment": "^2.14.1",
     "ms": "^0.7.2",
     "nconf": "^0.8.4",

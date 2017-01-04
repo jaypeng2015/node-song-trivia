@@ -1,8 +1,8 @@
 const Botkit = require('botkit');
-const messageCache = require('memory-cache');
 
 const config = require('./config');
 const logger = require('./lib/logger');
+const messageCache = require('./lib/cache');
 const models = require('./models');
 
 const Brain = require('./components/brain');
@@ -68,23 +68,29 @@ class Antonio {
   reactionAdded(event) {
     const { item, reaction } = event;
     if (item.type === 'message' && (reaction === 'musical_note' || reaction === 'art')) {
-      const history = messageCache.get(item.ts);
-      if (history) {
-        const answers = history.text.split('-');
-        if (answers.length === 1) {
-          if (reaction === 'musical_note') {
-            this.brain.learnTrack(history, answers[0])
-              .then((track) => {
-                this.brain.guessArtistByTrack(history, track);
-              });
-          } else {
-            this.brain.learnArtist(history, answers[0]).end();
-          }
-        } else {
-          // ignore answers like "artist - track" or "track - artist"
-          // 'cause the bot don't know which is which, and people prefer one answer because that is faster
+      messageCache.get(item.ts, (err, history) => {
+        if (err) {
+          logger.error('Redis cache `get` error', err);
+          return;
         }
-      }
+
+        if (history) {
+          const answers = history.text.split('-');
+          if (answers.length === 1) {
+            if (reaction === 'musical_note') {
+              this.brain.learnTrack(history, answers[0])
+                .then((track) => {
+                  this.brain.guessArtistByTrack(history, track);
+                });
+            } else {
+              this.brain.learnArtist(history, answers[0]).end();
+            }
+          } else {
+            // ignore answers like "artist - track" or "track - artist"
+            // 'cause the bot don't know which is which, and people prefer one answer because that is faster
+          }
+        }
+      });
     }
   }
 
@@ -105,8 +111,14 @@ class Antonio {
 
   heardGuess(message) {
     if (this.isGameStarted(message.team, message.channel)) {
-      messageCache.put(message.ts, message, 10000);
-      logger.debug('message saved', message);
+      messageCache.set(message.ts, message, { ttl: 300000 }, (err) => {
+        if (err) {
+          logger.error('Redis cache `set` error', err);
+          return;
+        }
+
+        logger.debug('message saved', message);
+      });
     }
   }
 
