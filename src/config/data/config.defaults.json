@@ -8,6 +8,12 @@
     "guess": "&GT;",
     "clue": "Okay, here's a clue:"
   },
+  "cache": {
+    "redis": {
+      "namespace": "antonio:cache:",
+      "uri": null
+    }
+  },
   "postgres": {
     "host": "localhost",
     "port": 5432,

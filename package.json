@@ -20,7 +20,7 @@
     "node"
   ],
   "engines": {
-    "node": "6.4.0"
+    "node": "6.9.1"
   },
   "author": "Jingwei Peng",
   "license": "MIT",
@@ -29,14 +29,19 @@
   },
   "homepage": "https://github.com/jaypeng2015/node-song-trivia-bot#readme",
   "dependencies": {
+    "async": "^2.1.4",
     "botkit": "^0.2.2",
+    "cbw": "^0.0.1",
     "cheerio": "^0.20.0",
     "fancy-errors": "^0.1.2",
     "lodash": "^4.13.1",
     "memory-cache": "^0.1.6",
     "moment": "^2.14.1",
+    "ms": "^0.7.2",
     "nconf": "^0.8.4",
+    "node-uuid": "^1.4.7",
     "pg": "^6.0.2",
+    "redis": "^2.6.3",
     "request": "^2.74.0",
     "sequelize": "^3.23.4",
     "winston": "^2.2.0",
