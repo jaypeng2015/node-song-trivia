@@ -16,7 +16,7 @@ const learnArtist = (bot, message, answers) => {
         return Artist.create({ name })
           .then((newArtist) => {
             logger.info(`Leant a new artist: ${newArtist.name}`);
-            bot.reply(message, `Leant a new artist: ${newArtist.name}`);
+            // bot.reply(message, `Leant a new artist: ${newArtist.name}`);
             return newArtist;
           });
       }
@@ -33,7 +33,7 @@ const learnTrack = (bot, message, answers) => {
         return Track.create({ name })
           .then((newTrack) => {
             logger.info(`Leant a new track: ${newTrack.name}`);
-            bot.reply(message, `Leant a new track: ${newTrack.name}`);
+            // bot.reply(message, `Leant a new track: ${newTrack.name}`);
             return newTrack;
           });
       }
@@ -53,7 +53,7 @@ const learnPair = (bot, message, record) => {
       }
 
       logger.info(`Leant a new track: ${track}`, record);
-      bot.reply(message, `Leant a new track: ${track}`);
+      // bot.reply(message, `Leant a new track: ${track}`);
       return Track.create({ name: track });
     })
     .then((trackInstance) => {
@@ -70,7 +70,7 @@ const learnPair = (bot, message, record) => {
           }
 
           logger.info(`Leant a new artist: ${artist}`);
-          bot.reply(message, `Leant a new artist: ${artist}`);
+          // bot.reply(message, `Leant a new artist: ${artist}`);
           return Artist.create({ name: artist });
         })
         .then((artistInstance) => {
