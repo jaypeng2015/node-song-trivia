@@ -1,5 +1,6 @@
 {
   "botkit": {
+    "debug": false,
     "token": ""
   },
   "signals": {

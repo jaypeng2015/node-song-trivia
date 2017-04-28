@@ -6,7 +6,7 @@ const _ = require('lodash');
 const redis = require('redis');
 const url = require('url');
 const ms = require('ms');
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 const logger = require('../logger');
 
 const connections = {};

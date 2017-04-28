@@ -11,7 +11,8 @@ class Antonio {
 
   constructor() {
     const token = config.get('botkit:token');
-    this.controller = Botkit.slackbot({ debug: false });
+    const debug = config.get('botkit:debug');
+    this.controller = Botkit.slackbot({ debug, retry: Infinity });
     this.bot = this.controller.spawn({ token }).startRTM();
     this.gameStarted = {};
     this.brain = new Brain(this.bot);
