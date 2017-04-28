@@ -1,4 +1,7 @@
 {
+  "apiai": {
+    "token": ""
+  },
   "botkit": {
     "debug": false,
     "token": ""

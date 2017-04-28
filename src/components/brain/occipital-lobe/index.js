@@ -1,11 +1,14 @@
+const _ = require('lodash');
+const apiai = require('apiai');
+const config = require('../../../config');
 const logger = require('../../../lib/logger');
+
+const app = apiai(config.get('apiai:token'));
 
 const chat = (bot, message) => {
   logger.debug('Someone said something to me', message);
-  const { text, user } = message;
-  if ((/h(i|ello)/i).test(text)) {
-    bot.reply(message, `Hi, <@${user}>`);
-  } else if ((/help/i).test(text)) {
+  const { text, user, event } = message;
+  if ((/help/i).test(text)) {
     bot.reply(message, '*_I can only beat other players if I know more than them._* \n' +
       'For each other one\'s guess, spotifyquizbot will give a reaction: \n' +
       ' - :art: means the point for guessing the *_artist_* of the current song is taken, I will just learn this new artist\n' +
@@ -15,7 +18,16 @@ const chat = (bot, message) => {
       ' - *_scrape billboard_* - e.g. _hey @antonio, scrape billboard!_\n' +
       'Have fun!');
   } else {
-    bot.reply(message, 'Sorry I can\'t understand this.');
+    const request = app.textRequest(text, { sessionId: user });
+    request.on('response', (response) => {
+      const speech = _.get(response, 'result.fulfillment.speech');
+      const reply = event === 'direct_message' ? speech : `<@${user}> ${speech}`;
+      bot.reply(message, reply);
+    });
+    request.on('error', (error) => {
+      bot.reply(message, error.message || 'Sorry I can\'t understand this.');
+    });
+    request.end();
   }
 };
 
