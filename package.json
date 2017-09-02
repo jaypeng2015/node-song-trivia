@@ -20,9 +20,12 @@
     "node"
   ],
   "engines": {
-    "node": "7.6.0"
+    "node": "8.1.4"
   },
-  "author": "Jingwei Peng",
+  "author": {
+    "name": "Jingwei Peng",
+    "email": "jay.peng@inlight.com.au"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jaypeng2015/node-song-trivia-bot/issues"
