@@ -4,7 +4,6 @@ const frontalLobe = require('./frontal-lobe');
 const occipitalLobe = require('./occipital-lobe');
 
 class Brain {
-
   constructor(bot) {
     this.bot = bot;
   }

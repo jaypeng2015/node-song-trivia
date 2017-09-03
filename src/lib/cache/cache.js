@@ -68,8 +68,8 @@ class Cache {
     if (_.isDate(ttl)) {
       async.series([
         // If value is null, don't perform the set method, proceed straight to pexpireat
-        (cb) => (!_.isNull(transformedValue) ? this.redis.set(namespacedKey, transformedValue, cb) : cb()),
-        (cb) => this.redis.pexpireat(namespacedKey, ttl.getTime(), cb),
+        cb => (!_.isNull(transformedValue) ? this.redis.set(namespacedKey, transformedValue, cb) : cb()),
+        cb => this.redis.pexpireat(namespacedKey, ttl.getTime(), cb),
       ], done);
     }
   }
@@ -82,7 +82,7 @@ class Cache {
    */
   get(key, callback) {
     const cb = callback || _.noop;
-    const keys = _.flatten([key]).map((item) => this.namespace(item));
+    const keys = _.flatten([key]).map(item => this.namespace(item));
     this.redis.mget(keys, cbw(cb)((res) => {
       const results = res.map(JSON.parse);
 
@@ -99,7 +99,7 @@ class Cache {
    */
   del(key, callback) {
     const cb = callback || _.noop;
-    const keys = _.flatten([key]).map((item) => this.namespace(item));
+    const keys = _.flatten([key]).map(item => this.namespace(item));
     this.redis.del(keys, (err, count) => {
       cb(err, count >= 1 ? constants.DELETED : constants.NOT_FOUND);
     });

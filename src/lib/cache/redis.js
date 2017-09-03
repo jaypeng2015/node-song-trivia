@@ -30,7 +30,7 @@ function open(opts, reuse) {
   // Check if connection already exists, thus returning it
   const uri = opts.uri;
   if (shouldReuse && connections[uri] && connections[uri].client) {
-    connections[uri].listeners++;
+    connections[uri].listeners += 1;
     return connections[uri].client;
   }
 
@@ -113,7 +113,7 @@ function close(opts) {
   }
 
   // Subtract from listener count
-  connection.listeners--;
+  connection.listeners -= 1;
 
   // If listeners is 0 or less then close the connection and remove
   if (connection.listeners <= 0) {

@@ -50,14 +50,14 @@ function factory(config) {
   };
 
   // Generate warning for unknown transports
-  const unknownTransports = _.filter(config.transports, (name) => !transports[name]);
+  const unknownTransports = _.filter(config.transports, name => !transports[name]);
   if (unknownTransports.length) {
     /* eslint-disable no-console */
     console.error('The following transports are unknown:', unknownTransports);
     /* eslint-enable no-console */
   }
 
-  _.filter(config.transports, (name) => !!transports[name]).forEach(name => transports[name]());
+  _.filter(config.transports, name => !!transports[name]).forEach(name => transports[name]());
 
   return logger;
 }

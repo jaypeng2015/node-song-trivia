@@ -33,7 +33,7 @@
   "log": {
     "transports": ["console"],
     "defaults": {
-      "level": "debug"
+      "level": "info"
     },
     "console": {
       "level": null

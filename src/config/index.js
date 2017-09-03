@@ -1,11 +1,10 @@
 const nconf = require('nconf');
 const path = require('path');
+// Build our match whitelist from the top level of config.defaults.json
+const json = require('./data/config.defaults.json');
 
 const SEPARATOR = '__';
 const env = process.env.NODE_ENV || 'development';
-
-// Build our match whitelist from the top level of config.defaults.json
-const json = require('./data/config.defaults.json');
 const matchString = Object.keys(json).join('|');
 const MATCH_REGEXP = new RegExp(`^(${matchString})${SEPARATOR}.+`);
 

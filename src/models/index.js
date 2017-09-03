@@ -2,11 +2,10 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-
 const logger = require('../lib/logger');
-
 // Get postgres configuration, create auth string if user specified, connect to database
 const config = require('../config').get('postgres');
+
 const sequelize = new Sequelize(config.database, config.user, config.password, {
   host: config.host,
   port: config.port,
