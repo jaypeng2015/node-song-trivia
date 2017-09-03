@@ -10,7 +10,7 @@ module.exports = (opts) => {
   let output = `${ts} ${opts.level.toUpperCase()} - ${name}${opts.message}`;
 
   // If trace is defined, format it to more compact representation
-  const meta = opts.meta;
+  const { meta } = opts;
   if (Array.isArray(meta.trace)) {
     meta.trace = trace(meta.trace);
   }

@@ -25,7 +25,7 @@ class Brain {
   }
 
   chat(message) {
-    const text = message.text;
+    const { text } = message;
     if (_.includes(text, 'scrape billboard')
      && !_.includes('I can only beat other players if I know more than them.')) {
       return this.scrapeBillboard(message);

@@ -28,7 +28,7 @@ function open(opts, reuse) {
   }
 
   // Check if connection already exists, thus returning it
-  const uri = opts.uri;
+  const { uri } = opts;
   if (shouldReuse && connections[uri] && connections[uri].client) {
     connections[uri].listeners += 1;
     return connections[uri].client;
@@ -104,7 +104,7 @@ function open(opts, reuse) {
  */
 function close(opts) {
   // Extract the connection uri from options
-  const uri = opts.uri;
+  const { uri } = opts;
 
   // Ensure the connection exists, otherwise return
   const connection = connections[uri];

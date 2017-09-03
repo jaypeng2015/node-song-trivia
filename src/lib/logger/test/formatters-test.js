@@ -29,15 +29,20 @@ describe('logger:lib:formatters', () => {
     it('should format data: meta with name', () => {
       const meta = { name: 'ComponentName' };
       assert.equal(
-        formatters.console({ level, message, meta, date }),
+        formatters.console({
+          level, message, meta, date,
+        }),
         `11:29:23.904 ERROR - ComponentName: Winter is coming
-${JSON.stringify(meta, null, 2)}`);
+${JSON.stringify(meta, null, 2)}` // eslint-disable-line comma-dangle
+      );
     });
 
     it('should format data: trace formatter', () => {
       const meta = {
         trace: [
-          { file: 'foo/bar.js', line: 30, column: 3, function: 'main' },
+          {
+            file: 'foo/bar.js', line: 30, column: 3, function: 'main',
+          },
           { native: true, function: 'Module._compile' },
         ],
         foo: 'bar',
@@ -52,9 +57,12 @@ ${JSON.stringify(meta, null, 2)}`);
       }, null, 2);
 
       assert.equal(
-        formatters.console({ level, message, meta, date }),
+        formatters.console({
+          level, message, meta, date,
+        }),
         `11:29:23.904 ERROR - Winter is coming
-${expectedJson}`);
+${expectedJson}` // eslint-disable-line comma-dangle
+      );
     });
 
     it('should format data: stack formatter shortening if beyond frames depth', () => {
@@ -75,7 +83,9 @@ ${expectedJson}`);
 
       // Note: you can use `new Buffer(expected).toString('hex')` output debugging
       assert.equal(
-        formatters.console({ level, message, meta, date }),
+        formatters.console({
+          level, message, meta, date,
+        }),
         `11:29:23.904 ERROR - ComponentName: Winter is coming
 ${expectedJson}
 ` +
@@ -84,7 +94,8 @@ ${expectedJson}
         ' ↳ at makeFaster (/home/file.js:5:3)' +
         ' ↳ at Object.<anonymous> (/home/file.js:10:1)' +
         ' ↳ at Module._compile (module.js:456:26) ' +
-        '\x1b[1;34mAdditional 6 internal frames hidden\u001b[0m\n');
+        '\x1b[1;34mAdditional 6 internal frames hidden\u001b[0m\n' // eslint-disable-line comma-dangle
+      );
     });
   });
 });

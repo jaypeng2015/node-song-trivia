@@ -1,11 +1,9 @@
 const _ = require('lodash');
-
 const logger = require('../../../lib/logger');
 const models = require('../../../models');
 const signals = require('../../../config').get('signals');
 
-const Artist = models.Artist;
-const Track = models.Track;
+const { Artist, Track } = models;
 
 const match = async (Module, clue) => {
   if (!_.includes(clue, '_')) {

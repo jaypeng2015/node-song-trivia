@@ -1,13 +1,11 @@
 const _ = require('lodash');
 const { eachSeries } = require('async');
-
 const logger = require('../../../lib/logger');
 const models = require('../../../models');
 const signals = require('../../../config').get('signals');
 const webScrapper = require('../../../web-scrapper');
 
-const Artist = models.Artist;
-const Track = models.Track;
+const { Artist, Track } = models;
 
 const learnArtist = async (bot, message, answers) => {
   const name = _.trim(_.trimStart(_.toUpper(_.trim(answers)), signals.guess));

@@ -15,7 +15,7 @@ class Antonio {
   }
 
   async listen() {
-    await models.sequelize.sync({})
+    await models.sequelize.sync({});
     this.controller.on('reaction_added', (bot, event) => (this.reactionAdded(event)));
     const signals = config.get('signals');
     this.controller.hears(`${signals.start}*`, [
