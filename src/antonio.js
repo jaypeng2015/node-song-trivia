@@ -83,7 +83,7 @@ class Antonio {
   }
 
   heardGuess(message) {
-    messageCache.set(message.ts, message, { ttl: 300000 }, (err) => {
+    messageCache.set(message.ts, message, { ttl: '30s' }, (err) => {
       if (err) {
         logger.error('Redis cache `set` error', err);
         return;
