@@ -5,7 +5,7 @@ const logger = require('../../../lib/logger');
 
 const app = apiai(config.get('apiai:token'));
 
-const chat = (bot, message) => {
+module.exports.chat = (bot, message) => {
   logger.debug('Someone said something to me', message);
   const { text, user, event } = message;
   if ((/help/i).test(text)) {
@@ -29,8 +29,4 @@ const chat = (bot, message) => {
     });
     request.end();
   }
-};
-
-module.exports = {
-  chat,
 };

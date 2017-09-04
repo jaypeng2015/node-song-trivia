@@ -1,5 +1,1 @@
-const scrapeBillboard = require('./scrape-billboard');
-
-module.exports = {
-  scrapeBillboard,
-};
+module.exports.scrapeBillboard = require('./scrape-billboard');
