@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const { eachSeries } = require('async');
 const logger = require('../../../lib/logger');
 const models = require('../../../models');
 const webScrapper = require('../../../web-scrapper');
@@ -85,20 +84,10 @@ module.exports.scrapeBillboard = async (bot, message) => {
   bot.reply(message, 'Started scraping billboard.');
   try {
     const records = await webScrapper.scrapeBillboard();
-    eachSeries(records, (record, cb) => {
-      learnPair(bot, message, record)
-        .then(() => cb())
-        .catch(err => cb(err));
-    }, (err) => {
-      if (err) {
-        logger.error('Something went wrong while studying', err);
-        bot.reply(message, `Something went wrong while studying. <@${message.user}>`);
-        throw err;
-      }
-
-      logger.info('Finished scraping billboard', { user: message.user });
-      bot.reply(message, 'Finished scraping billboard.');
-    });
+    for (const record of records) { // eslint-disable-line no-restricted-syntax
+      await learnPair(bot, message, record); // eslint-disable-line no-await-in-loop
+    }
+    bot.reply(message, 'Finished scraping billboard.');
   } catch (err) {
     logger.error('Something went wrong while scrapping billboard', err);
     bot.reply(message, `Something went wrong while scrapping billboard. <@${message.user}>`);

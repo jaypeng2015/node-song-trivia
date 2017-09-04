@@ -33,9 +33,7 @@
   "homepage": "https://github.com/jaypeng2015/node-song-trivia-bot#readme",
   "dependencies": {
     "apiai": "^4.0.2",
-    "async": "^2.3.0",
     "botkit": "^0.5.8",
-    "cbw": "^0.0.1",
     "cheerio": "^1.0.0-rc.2",
     "fancy-errors": "^0.1.2",
     "lodash": "^4.13.1",

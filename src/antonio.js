@@ -46,32 +46,24 @@ class Antonio {
     ], (bot, message) => this.heardSomethingElse(message));
   }
 
-  reactionAdded(event) {
+  async reactionAdded(event) {
     const { item, reaction } = event;
     if (item.type === 'message' && (reaction === 'musical_note' || reaction === 'art')) {
-      messageCache.get(item.ts, (err, history) => {
-        if (err) {
-          logger.error('Redis cache `get` error', err);
-          return;
-        }
-
-        if (history) {
-          const answers = _.compact([history.match[1], history.match[2]]);
-          if (answers.length === 1) {
-            if (reaction === 'musical_note') {
-              this.brain.learnTrack(history, answers[0])
-                .then((track) => {
-                  this.brain.guessArtistByTrack(history, track);
-                });
-            } else {
-              this.brain.learnArtist(history, answers[0]);
-            }
+      const history = await messageCache.get(item.ts);
+      if (history) {
+        const answers = _.compact([history.match[1], history.match[2]]);
+        if (answers.length === 1) {
+          if (reaction === 'musical_note') {
+            const track = await this.brain.learnTrack(history, answers[0]);
+            await this.brain.guessArtistByTrack(history, track);
           } else {
-            // ignore answers like "artist - track" or "track - artist"
-            // 'cause the bot don't know which is which, and people prefer one answer because that is faster
+            await this.brain.learnArtist(history, answers[0]);
           }
+        } else {
+          // ignore answers like "artist - track" or "track - artist"
+          // 'cause the bot don't know which is which, and people prefer one answer because that is faster
         }
-      });
+      }
     }
   }
 
@@ -82,15 +74,9 @@ class Antonio {
     }
   }
 
-  heardGuess(message) {
-    messageCache.set(message.ts, message, { ttl: '30s' }, (err) => {
-      if (err) {
-        logger.error('Redis cache `set` error', err);
-        return;
-      }
-
-      logger.debug('message saved', message);
-    });
+  async heardGuess(message) {
+    await messageCache.set(message.ts, message, '30s');
+    logger.debug('message saved', message);
   }
 
   heardClue(message) {
