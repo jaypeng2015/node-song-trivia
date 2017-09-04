@@ -2,11 +2,20 @@ const _ = require('lodash');
 const logger = require('../../../lib/logger');
 const models = require('../../../models');
 
+const NEGATIVES = [
+  'This is really hard, isn\'t it?',
+  'Who knows a song like this?',
+  'Oh deer, this is too hard :sob:',
+  'Wat!?',
+  'I bet you\'ve never heard of this one before!',
+  'Oh, come on!',
+];
+
 const { Artist, Track } = models;
 
 const match = async (Module, clue) => {
   if (!_.includes(clue, '_')) {
-    return null;
+    return { name: clue };
   }
 
   const instances = await Module.findAll();
@@ -50,12 +59,15 @@ module.exports.guessByClue = async (bot, message) => {
       match(Track, _.trim(clues[2])),
     ]);
 
-    _.forEach(results, (result) => {
-      _.forEach(result, (guess) => {
+    const guesses = _.compact(_.flatten(results));
+    if (_.isEmpty(guesses)) {
+      bot.reply(message, NEGATIVES[_.random(0, NEGATIVES.length)]);
+    } else {
+      _.forEach(guesses, (guess) => {
         logger.info('make a guess', `>${guess.name}`);
         bot.reply(message, `>${guess.name}`);
       });
-    });
+    }
   } catch (err) {
     logger.error('Something wrong', err);
   }
