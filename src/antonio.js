@@ -18,7 +18,7 @@ class Antonio {
     await models.sequelize.sync({});
     this.controller.on('reaction_added', (bot, event) => (this.reactionAdded(event)));
     const signals = config.get('signals');
-    this.controller.hears(`^${signals.start}`, [
+    this.controller.hears(/^A new game has begun!/i, [
       'ambient',
     ], (bot, message) => {
       if (message.team && message.channel) {
@@ -27,15 +27,15 @@ class Antonio {
       }
     });
 
-    this.controller.hears(signals.end, [
+    this.controller.hears(/^The game is over!/, [
       'ambient',
     ], (bot, message) => this.heardGameStopped(message));
 
-    this.controller.hears(signals.guess, [
+    this.controller.hears(/^&gt; /i, [
       'ambient',
     ], (bot, message) => this.heardGuess(message));
 
-    this.controller.hears(signals.clue, [
+    this.controller.hears(/^Okay, here’s a clue: `([^-]+) - ([^\()]+).*`$/i, [
       'ambient',
     ], (bot, message) => this.heardClue(message));
 
@@ -83,7 +83,6 @@ class Antonio {
   }
 
   heardGuess(message) {
-    console.log('message', message)
     messageCache.set(message.ts, message, { ttl: 300000 }, (err) => {
       if (err) {
         logger.error('Redis cache `set` error', err);
@@ -95,7 +94,6 @@ class Antonio {
   }
 
   heardClue(message) {
-    console.log('message', message)
     logger.info('It\'s time to guess!', message);
     this.brain.guessByClue(message);
   }

@@ -6,12 +6,6 @@
     "debug": false,
     "token": ""
   },
-  "signals": {
-    "start": "^A new game has begun!",
-    "end": "^The game is over!",
-    "guess": "^&gt;",
-    "clue": "^Okay, here.+a clue:"
-  },
   "cache": {
     "redis": {
       "namespace": "antonio:cache:",

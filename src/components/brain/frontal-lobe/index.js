@@ -36,37 +36,30 @@ const match = async (Module, clue) => {
   return found;
 };
 
-const guessArtistByTrack = async (bot, message, track) => {
+module.exports.guessArtistByTrack = async (bot, message, track) => {
   const artists = await track.getArtists();
   artists.forEach((artist) => {
     bot.reply(message, `>${artist.name}`);
   });
 };
 
-const guessByClue = async (bot, message) => {
-  const clues = message.text.split('-');
-  if (clues.length === 2) {
-    const artistClue = _.toUpper(_.trim(_.trimStart(clues[0], signals.clue)));
-    const trackClue = _.toUpper(_.trim(clues[1]));
-    try {
-      const results = await Promise.all([
-        match(Artist, artistClue),
-        match(Track, trackClue),
-      ]);
+module.exports.guessByClue = async (bot, message) => {
+  const clues = message.match;
+  console.log(_.trim(clues[1]));
+  console.log(_.trim(clues[2]));
+  try {
+    const results = await Promise.all([
+      match(Artist, _.trim(clues[1])),
+      match(Track, _.trim(clues[2])),
+    ]);
 
-      _.forEach(results, (result) => {
-        _.forEach(result, (guess) => {
-          logger.info('make a guess', `>${guess.name}`);
-          bot.reply(message, `>${guess.name}`);
-        });
+    _.forEach(results, (result) => {
+      _.forEach(result, (guess) => {
+        logger.info('make a guess', `>${guess.name}`);
+        bot.reply(message, `>${guess.name}`);
       });
-    } catch (err) {
-      logger.error('Something wrong', err);
-    }
+    });
+  } catch (err) {
+    logger.error('Something wrong', err);
   }
-};
-
-module.exports = {
-  guessByClue,
-  guessArtistByTrack,
 };
