@@ -16,12 +16,11 @@ module.exports = (sequelize, DataTypes) => {
 
   const Artist = sequelize.define('artist', schema, {
     indexes,
-    classMethods: {
-      associate: (models) => {
-        models.Artist.belongsToMany(models.Track, { through: 'artist-track' });
-      },
-    },
   });
+
+  Artist.associate = function associate(models) {
+    models.Artist.belongsToMany(models.Track, { through: 'artist-track' });
+  }
 
   return Artist;
 };

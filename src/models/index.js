@@ -21,9 +21,7 @@ const basename = path.basename(module.filename);
 
 // For each .js file in the models directory, import as a sequalize model, attach to models
 fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
+  .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
     const modelName = _.upperFirst(_.camelCase(model.name));
@@ -31,9 +29,9 @@ fs.readdirSync(__dirname)
   });
 
 // Execute associate function if defined so models can establish relationships to each other
-Object.keys(models).forEach((modelName) => {
-  if (models[modelName].associate) {
-    models[modelName].associate(models);
+_.forIn(models, (model) => {
+  if (model.associate) {
+    model.associate(models);
   }
 });
 

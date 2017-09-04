@@ -37,18 +37,22 @@ const learnPair = async (bot, message, record) => {
   const { artist, track } = record;
   let trackInstance;
   let artistInstance;
-  let found = await Track.findOne({ where: { name: { $ilike: track } } });
-  if (found) {
-    logger.info(`I knew this track: ${track}`);
-    trackInstance = found;
+  let found;
+  if (_.isEmpty(track)) {
+    trackInstance = null;
   } else {
-    logger.info(`Leant a new track: ${track}`, record);
-    // bot.reply(message, `Leant a new track: ${track}`);
-    trackInstance = await Track.create({ name: track });
+    found = await Track.findOne({ where: { name: { $ilike: track } } });
+    if (found) {
+      logger.info(`I knew this track: ${track}`);
+      trackInstance = found;
+    } else {
+      logger.info(`Leant a new track: ${track}`, record);
+      // bot.reply(message, `Leant a new track: ${track}`);
+      trackInstance = await Track.create({ name: track });
+    }
   }
 
   if (_.isEmpty(artist)) {
-    logger.info(`no artist for this track: ${trackInstance.name}`);
     artistInstance = null;
   } else {
     found = await Artist.findOne({ where: { name: { $ilike: artist } } });
@@ -62,8 +66,7 @@ const learnPair = async (bot, message, record) => {
     }
   }
 
-  if (!artistInstance) {
-    logger.info('No artist info for this track', record);
+  if (!(artistInstance && trackInstance)) {
     return record;
   }
 
@@ -79,7 +82,8 @@ const learnPair = async (bot, message, record) => {
 };
 
 const scrapeBillboard = async (bot, message) => {
-  bot.reply(message, 'Start scraping billboard.');
+  logger.info('Started scraping billboard', { user: message.user });
+  bot.reply(message, 'Started scraping billboard.');
   try {
     const records = await webScrapper.scrapeBillboard();
     eachSeries(records, (record, cb) => {
@@ -87,8 +91,14 @@ const scrapeBillboard = async (bot, message) => {
         .then(() => cb())
         .catch(err => cb(err));
     }, (err) => {
-      logger.error('Something went wrong while studying', err);
-      bot.reply(message, `Something went wrong while studying. <@${message.user}>`);
+      if (err) {
+        logger.error('Something went wrong while studying', err);
+        bot.reply(message, `Something went wrong while studying. <@${message.user}>`);
+        throw err;
+      }
+
+      logger.info('Finished scraping billboard', { user: message.user });
+      bot.reply(message, 'Finished scraping billboard.');
     });
   } catch (err) {
     logger.error('Something went wrong while scrapping billboard', err);
