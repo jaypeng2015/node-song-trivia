@@ -2,15 +2,14 @@ const _ = require('lodash');
 const { eachSeries } = require('async');
 const logger = require('../../../lib/logger');
 const models = require('../../../models');
-const signals = require('../../../config').get('signals');
 const webScrapper = require('../../../web-scrapper');
 
 const { Artist, Track } = models;
 
-const learnArtist = async (bot, message, answers) => {
-  const name = _.trim(_.trimStart(_.toUpper(_.trim(answers)), signals.guess));
+module.exports.learnArtist = async (bot, message, name) => {
   const found = await Artist.findOne({ where: { name: { $ilike: name } } });
   if (found) {
+    logger.info(`I knew this artist: ${name}`);
     return found;
   }
 
@@ -20,10 +19,10 @@ const learnArtist = async (bot, message, answers) => {
   return newArtist;
 };
 
-const learnTrack = async (bot, message, answers) => {
-  const name = _.trim(_.trimStart(_.toUpper(_.trim(answers)), signals.guess));
+module.exports.learnTrack = async (bot, message, name) => {
   const found = await Track.findOne({ where: { name: { $ilike: name } } });
   if (found) {
+    logger.info(`I knew this track: ${name}`);
     return found;
   }
 
@@ -81,7 +80,7 @@ const learnPair = async (bot, message, record) => {
   return record;
 };
 
-const scrapeBillboard = async (bot, message) => {
+module.exports.scrapeBillboard = async (bot, message) => {
   logger.info('Started scraping billboard', { user: message.user });
   bot.reply(message, 'Started scraping billboard.');
   try {
@@ -104,10 +103,4 @@ const scrapeBillboard = async (bot, message) => {
     logger.error('Something went wrong while scrapping billboard', err);
     bot.reply(message, `Something went wrong while scrapping billboard. <@${message.user}>`);
   }
-};
-
-module.exports = {
-  scrapeBillboard,
-  learnArtist,
-  learnTrack,
 };

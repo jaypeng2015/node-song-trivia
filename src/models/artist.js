@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Artist.associate = function associate(models) {
     models.Artist.belongsToMany(models.Track, { through: 'artist-track' });
-  }
+  };
 
   return Artist;
 };

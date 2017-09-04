@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Botkit = require('botkit');
 const Brain = require('./components/brain');
 const config = require('./config');
@@ -17,7 +18,6 @@ class Antonio {
   async listen() {
     await models.sequelize.sync({});
     this.controller.on('reaction_added', (bot, event) => (this.reactionAdded(event)));
-    const signals = config.get('signals');
     this.controller.hears(/^A new game has begun!/i, [
       'ambient',
     ], (bot, message) => {
@@ -31,11 +31,11 @@ class Antonio {
       'ambient',
     ], (bot, message) => this.heardGameStopped(message));
 
-    this.controller.hears(/^&gt; /i, [
+    this.controller.hears(/^&gt;(.+)/i, [
       'ambient',
     ], (bot, message) => this.heardGuess(message));
 
-    this.controller.hears(/^Okay, here’s a clue: `([^-]+) - ([^\()]+).*`$/i, [
+    this.controller.hears(/^Okay, here’s a clue: `([^-]+) - ([^(]+).*`$/i, [
       'ambient',
     ], (bot, message) => this.heardClue(message));
 
@@ -56,7 +56,7 @@ class Antonio {
         }
 
         if (history) {
-          const answers = history.text.split('-');
+          const answers = _.compact([history.match[1], history.match[2]]);
           if (answers.length === 1) {
             if (reaction === 'musical_note') {
               this.brain.learnTrack(history, answers[0])
@@ -64,7 +64,7 @@ class Antonio {
                   this.brain.guessArtistByTrack(history, track);
                 });
             } else {
-              this.brain.learnArtist(history, answers[0]).end();
+              this.brain.learnArtist(history, answers[0]);
             }
           } else {
             // ignore answers like "artist - track" or "track - artist"
