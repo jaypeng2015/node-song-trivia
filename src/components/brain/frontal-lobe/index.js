@@ -45,8 +45,6 @@ module.exports.guessArtistByTrack = async (bot, message, track) => {
 
 module.exports.guessByClue = async (bot, message) => {
   const clues = message.match;
-  console.log(_.trim(clues[1]));
-  console.log(_.trim(clues[2]));
   try {
     const results = await Promise.all([
       match(Artist, _.trim(clues[1])),

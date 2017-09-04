@@ -99,7 +99,6 @@ class Antonio {
   }
 
   heardSomethingElse(message) {
-    console.log(message)
     this.brain.chat(message);
   }
 }
