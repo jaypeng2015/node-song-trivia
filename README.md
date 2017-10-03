@@ -1,5 +1,8 @@
 # Slack Bot - Song Trivia The Legend
 
+[![Dependency Status](https://david-dm.org/jaypeng2015/node-song-trivia-bot/status.svg)](https://david-dm.org/jaypeng2015/node-song-trivia-bot)
+[![devDependency Status](https://david-dm.org/jaypeng2015/node-song-trivia-bot/dev-status.svg)](https://david-dm.org/jaypeng2015/node-song-trivia-bot?type=dev)
+
 A slack bot who want's to win a song trivia game.
 
 # Getting started
