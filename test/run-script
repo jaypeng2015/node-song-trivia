@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Bash script to control the running of tests
+
+export NODE_ENV="${NODE_ENV:=test}"
+
+# ensure tests are not being run in production
+if [ "$NODE_ENV" == "production" ]; then echo "ERROR: Can't run tests in production"; exit 1; fi
+
+# --verbose option
+if [ -n "$npm_config_verbose" ]; then export LOG__TRANSPORTS=console; export LOG__LEVEL=debug; fi
+
+# --watch option
+if [ -n "$npm_config_watch" ]; then WATCH="--watch"; else WATCH=""; fi
+
+# --bail option is turned off when running --watch
+if [ -n "$npm_config_watch" ]; then BAIL=""; else BAIL="--bail"; fi
+
+# --coverage option
+if [ -n "$npm_config_coverage" ]; then RUNNER="node --use_strict ./node_modules/.bin/istanbul cover _mocha --"; else RUNNER="mocha"; fi
+
+# Then execute test runner
+$RUNNER \
+  --check-leaks \
+  --use_strict \
+  --grep ${npm_config_grep:-''} \
+  --require test/globals.js \
+  --globals test \
+  --recursive \
+  --timeout 60s \
+  --inline-diffs \
+  $BAIL \
+  $WATCH \
+  ./test/**/*-test.js \
+  ./src/**/*-test.js

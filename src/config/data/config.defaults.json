@@ -1,0 +1,49 @@
+{
+  "apiai": {
+    "token": ""
+  },
+  "botkit": {
+    "debug": false,
+    "token": ""
+  },
+  "cache": {
+    "redis": {
+      "namespace": "antonio:cache:",
+      "uri": null
+    }
+  },
+  "postgres": {
+    "host": "localhost",
+    "port": 5432,
+    "user": "",
+    "password": "",
+    "database": "antonio",
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "idle": 10000
+    }
+  },
+  "log": {
+    "transports": ["console"],
+    "defaults": {
+      "level": "info"
+    },
+    "console": {
+      "level": null
+    },
+    "file": {
+      "level": null,
+      "filename": null
+    },
+    "loggly": {
+      "level": null,
+      "subdomain": null,
+      "token": null
+    },
+    "sentry": {
+      "level": null,
+      "dsn": null
+    }
+  }
+}
