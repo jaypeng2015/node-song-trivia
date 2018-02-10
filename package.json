@@ -20,7 +20,7 @@
     "node"
   ],
   "engines": {
-    "node": "8.4.0"
+    "node": "8.9.3"
   },
   "author": {
     "name": "Jingwei Peng",
@@ -33,26 +33,26 @@
   "homepage": "https://github.com/jaypeng2015/node-song-trivia-bot#readme",
   "dependencies": {
     "apiai": "^4.0.2",
-    "botkit": "^0.6.3",
+    "botkit": "^0.6.9",
     "cheerio": "^1.0.0-rc.2",
     "fancy-errors": "^0.1.2",
-    "lodash": "^4.13.1",
-    "moment": "^2.14.1",
-    "ms": "^2.0.0",
-    "nconf": "^0.8.4",
-    "pg": "^7.3.0",
-    "pino": "^4.8.0",
+    "lodash": "^4.17.5",
+    "moment": "^2.20.1",
+    "ms": "^2.1.1",
+    "nconf": "^0.10.0",
+    "pg": "^7.4.1",
+    "pino": "^4.10.4",
     "redis": "^2.6.3",
     "request": "^2.74.0",
     "request-promise-native": "^1.0.4",
-    "sequelize": "^4.13.1",
-    "uuid": "^3.0.1"
+    "sequelize": "^4.33.2",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "eslint": "^4.6.1",
+    "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
-    "mocha": "^3.5.3",
-    "should": "^13.0.1"
+    "mocha": "^5.0.0",
+    "should": "^13.2.1"
   }
 }
