@@ -33,26 +33,26 @@
   "homepage": "https://github.com/jaypeng2015/node-song-trivia-bot#readme",
   "dependencies": {
     "apiai": "^4.0.2",
-    "botkit": "^0.6.9",
+    "botkit": "^0.6.13",
     "cheerio": "^1.0.0-rc.2",
     "fancy-errors": "^0.1.2",
     "lodash": "^4.17.5",
-    "moment": "^2.20.1",
+    "moment": "^2.22.1",
     "ms": "^2.1.1",
     "nconf": "^0.10.0",
     "pg": "^7.4.1",
-    "pino": "^4.10.4",
+    "pino": "^4.16.1",
     "redis": "^2.6.3",
-    "request": "^2.74.0",
+    "request": "^2.85.0",
     "request-promise-native": "^1.0.4",
-    "sequelize": "^4.33.2",
+    "sequelize": "^4.37.6",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "eslint": "^4.17.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.0.0",
-    "eslint-plugin-import": "^2.7.0",
-    "mocha": "^5.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "mocha": "^5.1.1",
     "should": "^13.2.1"
   }
 }
